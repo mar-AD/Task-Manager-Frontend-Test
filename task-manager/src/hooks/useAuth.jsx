@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const initializeAuth = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      console.log('🔍 Initial auth check - Token exists:', !!token);
 
       if (!token) {
         setLoading(false);

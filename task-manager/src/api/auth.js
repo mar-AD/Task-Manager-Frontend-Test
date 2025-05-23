@@ -31,9 +31,7 @@ export const login = async (credentials) => {
     };
 
   } catch (error) {
-    console.error('Login failed:', error);
     localStorage.removeItem('token');
-    toast.error(error.response?.data?.message || 'Login failed');
     throw error;
   }
 };

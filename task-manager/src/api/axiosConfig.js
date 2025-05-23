@@ -20,14 +20,17 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-      toast.error('Session expired. Please login again.');
-    } else {
-      const message = error.response?.data?.message || 
-      error.message || 
-      'Request failed';
-      toast.error(message);
+      const isLoginPage = window.location.pathname === '/login';
+      
+      if (!isLoginPage) {
+        localStorage.removeItem('token');
+        toast.error('Session expired. Please login again.', {
+          autoClose: 4000,
+          onClose: () => {
+            window.location.href = '/login';
+          }
+        });
+      }
     }
     return Promise.reject(error);
   }
